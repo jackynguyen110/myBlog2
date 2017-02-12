@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag "custom" %>
+<div class="container">
+	<p id="notice"><%= notice %></p>
+	<h1 class="panel-heading"><span class="panel-title">Trung's blog</span></h1>
+	<h3>My first app ruby</h3>
+	<div class="col-sm-8">
+		<% @articles.each do |article|   %>
+		<div class="card">
+		  <div class="card-block">
+		    <h4 class="card-title"><%= article.title %></h4>
+		    <p class="card-text"><%= @markdown.render(article.body).html_safe %></p>
+		  
+		  </div>
+		  <div class="card-footer">
+		    <a href="/articles/<%= article.id %>/edit" class="btn btn-warning">Edit</a>
+		    <a href="/articles/<%= article.id %>" data-method="delete" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+		  </div>
+		</div>
+		<% end %>
+	</div>
+	
+	<a style="margin-top:20px; margin-bottom: 20px" href="/articles/new" class="btn btn-success">New articles</a>
+
+</div>

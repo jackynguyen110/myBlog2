@@ -1,0 +1,55 @@
+<%= stylesheet_link_tag "custom" %>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <a class="navbar-brand" href="/articles">JACKY BLOG</a>
+	
+	  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	      </li>
+	     
+	    </ul>
+	    <form action="/articles" method ="get" id="search-form" class="form-inline my-2 my-md-0">
+
+		    <input type="text" id="search" value="<%= @search %>" name="search" class="form-control mr-sm-2" placeholder="Search content" />
+
+
+		 	 <select class="form-control mr-sm-2" id="findBy" name="findBy">
+			 	<option value="0">-- Find All --</option>
+				<option <%= @findBy == "1" ? "selected" : "" %> value="1">Find By Title</option>
+				<option <%= @findBy == "2" ? "selected" : "" %> value="2">Find By Body</option>
+			 </select>
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		</form>
+	  </div>
+</nav>
+<div class="container">
+	
+	
+	
+	<p id="notice"><%= notice %></p>
+	<h1 class="panel-heading"><span class="panel-title">Articles</span></h1>
+	<div class="col-sm-8">
+		<% @articles.each do |article|   %>
+		<div class="card" style="margin-bottom:20px">
+		  <div class="card-block">
+		    <h4 class="card-title"><%= article.title %></h4>
+		    <p class="card-text"><%= @markdown.render(article.body).html_safe %></p>
+		  
+		  </div>
+		  <div class="card-footer">
+		    <a href="/articles/<%= article.id %>/edit" class="btn btn-warning">Edit</a>
+		    <a href="/articles/<%= article.id %>" data-method="delete" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+		  </div>
+		</div>
+		<% end %>
+	</div>
+	
+	<a style="margin-top:20px; margin-bottom: 20px" href="/articles/new" class="btn btn-success">New articles</a>
+
+</div>
+</body>
